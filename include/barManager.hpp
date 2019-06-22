@@ -29,7 +29,13 @@ public:
         while(running) {
             lock.lock();
             std::string output;
+            bool first = true;
             for(const auto &bar : bar_list) {
+                if(first) {
+                    first = false;
+                } else {
+                    output += "\t";
+                }
                 output += bar->getStatus();
             }
             setstatus(dpy, output);
