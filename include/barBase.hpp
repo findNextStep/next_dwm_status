@@ -29,10 +29,10 @@ public:
 
 class barPerSeconds: public barBase {
 private:
-    static std::vector<std::function<void()> > task_list;
 protected:
     virtual void per_second_task() = 0;
 public:
+    static std::vector<std::function<void()> > task_list;
     barPerSeconds() {
         task_list.push_back([this]() {
             this->per_second_task();

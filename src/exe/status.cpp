@@ -2,28 +2,22 @@
 
 #include <X11/Xlib.h>
 #include "barBase.hpp"
+#include "barManager.hpp"
 
 using namespace std;
 
-void
-setstatus(Display *dpy, const string &str) {
-    XStoreName(dpy, DefaultRootWindow(dpy), str.c_str());
-    XSync(dpy, False);
-}
-
-
 int main() {
-    ::nextDwmStatus::timecaller timer;
-    std::thread thread([](){
-        ::nextDwmStatus::barPerSeconds::main_thread();
-    });
-    if(auto dpy = XOpenDisplay(NULL); dpy != NULL) {
-        while(true){
-            setstatus(dpy,timer.getStatus());
+    ::nextDwmStatus::barManager bm;
+    bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::timecaller()));
+    for(;;) {
+        auto start = std::chrono::system_clock::now();
+        for(auto task : ::nextDwmStatus::barPerSeconds::task_list) {
+            task();
         }
-    } else {
-        fprintf(stderr, "dwmstatus: cannot open display.\n");
-        return 1;
+        auto end = std::chrono::system_clock::now();
+        auto diff = std::chrono::milliseconds(500) - (end - start);
+        std::this_thread::sleep_for(diff);
+        bm.requires_launch();
     }
     return 0;
 }
