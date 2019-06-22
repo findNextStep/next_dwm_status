@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <X11/Xlib.h>
+#include "barBase.hpp"
 
 using namespace std;
 
@@ -12,9 +13,14 @@ setstatus(Display *dpy, const string &str) {
 
 
 int main() {
+    ::nextDwmStatus::timecaller timer;
+    std::thread thread([](){
+        ::nextDwmStatus::barPerSeconds::main_thread();
+    });
     if(auto dpy = XOpenDisplay(NULL); dpy != NULL) {
-        std::string status = "test";
-        setstatus(dpy,status);
+        while(true){
+            setstatus(dpy,timer.getStatus());
+        }
     } else {
         fprintf(stderr, "dwmstatus: cannot open display.\n");
         return 1;
