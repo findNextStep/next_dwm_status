@@ -11,7 +11,7 @@
 
 namespace nextDwmStatus {
 
-class barManager {
+class _barManager {
 private:
     std::mutex lock;
     std::vector<std::unique_ptr<barBase> > bar_list;
@@ -24,8 +24,7 @@ protected:
         XSync(dpy, true);
     }
 public:
-    barManager(): dpy(XOpenDisplay(NULL)), running(true), send_thread([this] {
-        std::cout << "start send thread" << std::endl;
+    _barManager(): dpy(XOpenDisplay(NULL)), running(true), send_thread([this] {
         lock.lock();
         while(running) {
             lock.lock();
@@ -35,12 +34,10 @@ public:
             }
             setstatus(dpy, output);
         }
-        std::cout << "send thread end" << std::endl;
     }) {
         dpy = XOpenDisplay(NULL);
     }
-
-    ~barManager() {
+    ~_barManager() {
         running = false;
         requires_launch();
     }
@@ -54,4 +51,18 @@ public:
     }
 
 };
+
+class barManager {
+private:
+    static _barManager bm;
+public:
+    static void requires_launch() {
+        bm.requires_launch();
+    }
+
+    static void add_bar(std::unique_ptr<barBase> &&bar) {
+        bm.add_bar(std::move(bar));
+    }
+};
+_barManager barManager::bm;
 }
