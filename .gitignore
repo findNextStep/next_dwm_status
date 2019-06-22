@@ -36,3 +36,7 @@ build
 
 # vscode local setting
 .vscode
+
+# lsp cache
+.cquery_cache
+.ccls-cache
