@@ -5,12 +5,15 @@
 #include "barManager.hpp"
 #include "barPerSeconds.hpp"
 #include "volumeBar.hpp"
+#include "network.hpp"
 
 using namespace std;
 
 int main() {
     ::nextDwmStatus::barManager bm;
     bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::staticBar("")));
+    bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::netUpload()));
+    bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::netDownload()));
     bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::volumeBar()));
     bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::timecaller()));
     bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::staticBar("")));
