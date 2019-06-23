@@ -44,19 +44,24 @@ public:
     netUpload(): netSpeed("tx_bytes") {}
     netUpload(const std::string &net): netSpeed(net, "tx_bytes") {}
     virtual const std::string getStatus()const {
+        std::string status;
+        status += "";
         std::stringstream ss;
-        ss << "";
-        ss << std::setprecision(3) << std::ios::fixed;
-        if(speed > (1 << 30)) {
+        ss << std::setprecision(3);
+        if(speed > ((1 << 30) / 10)) {
             ss << speed / (1 << 30) << "GB/s";
-        } else if(speed > (1 << 20)) {
+        } else if(speed > ((1 << 20) / 10)) {
             ss << speed / (1 << 20) << "MB/s";
-        } else if(speed > (1 << 10)) {
+        } else if(speed > ((1 << 10) / 10)) {
             ss << speed / (1 << 10) << "kB/s";
         } else {
             ss << speed << "bits";
         }
-        return ss.str();
+        for(int i = ss.str().size(); i < 10; ++i) {
+            status += " ";
+        }
+        status += ss.str();
+        return status;
     }
 };
 
@@ -65,19 +70,24 @@ public:
     netDownload(): netSpeed("rx_bytes") {}
     netDownload(const std::string &net): netSpeed(net, "rx_bytes") {}
     virtual const std::string getStatus()const {
+        std::string status;
+        status += "";
         std::stringstream ss;
-        ss << "";
-        ss << std::setprecision(3) << std::ios::fixed;
-        if(speed > (1 << 30)) {
+        ss << std::setprecision(3);
+        if(speed > ((1 << 30) / 10)) {
             ss << speed / (1 << 30) << "GB/s";
-        } else if(speed > (1 << 20)) {
+        } else if(speed > ((1 << 20) / 10)) {
             ss << speed / (1 << 20) << "MB/s";
-        } else if(speed > (1 << 10)) {
+        } else if(speed > ((1 << 10) / 10)) {
             ss << speed / (1 << 10) << "kB/s";
         } else {
             ss << speed << "bits";
         }
-        return ss.str();
+        for(int i = ss.str().size(); i < 10; ++i) {
+            status += " ";
+        }
+        status += ss.str();
+        return status;
     }
 };
 }
