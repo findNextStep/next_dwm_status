@@ -34,7 +34,7 @@ public:
                 if(first) {
                     first = false;
                 } else {
-                    output += "\t";
+                    output += " ";
                 }
                 output += bar->getStatus();
             }
