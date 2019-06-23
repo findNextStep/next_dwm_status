@@ -7,6 +7,8 @@
 #include <thread>
 #include <iomanip>
 #include <ctime>
+#include <string.h>
+#include <stdio.h>
 
 namespace nextDwmStatus {
 
@@ -26,5 +28,30 @@ public:
         return status;
     }
 };
+
+
+const std::string
+run_command(const std::string command) {
+    char *p;
+    FILE *fp;
+    char buf[1024];
+
+    if(!(fp = popen(command.c_str(), "r"))) {
+        return "";
+    }
+    p = fgets(buf, sizeof(buf) - 1, fp);
+    if(pclose(fp) < 0) {
+        return "";
+    }
+    if(!p) {
+        return "";
+    }
+    if((p = strrchr(buf, '\n'))) {
+        p[0] = '\0';
+    }
+
+    return buf[0] ? buf : NULL;
+}
+
 
 }
