@@ -40,3 +40,4 @@ build
 # lsp cache
 .cquery_cache
 .ccls-cache
+compile_commands.json
