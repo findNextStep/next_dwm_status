@@ -14,6 +14,7 @@ int main() {
     bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::staticBar("")));
     bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::netUpload()));
     bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::netDownload()));
+    bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::staticBar("")));
     bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::volumeBar()));
     bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::timecaller()));
     bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::staticBar("")));
