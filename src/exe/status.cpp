@@ -8,12 +8,14 @@
 #include "network.hpp"
 #include "cpu.hpp"
 #include "memery.hpp"
+#include "battery.hpp"
 
 using namespace std;
 
 int main() {
     ::nextDwmStatus::barManager bm;
     bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::staticBar("")));
+    bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::battery()));
     bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::cpu()));
     bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::memery()));
     bm.add_bar(std::unique_ptr<::nextDwmStatus::barBase>(new ::nextDwmStatus::netUpload()));
