@@ -47,17 +47,17 @@ public:
         std::string status;
         status += "";
         std::stringstream ss;
-        ss << std::setprecision(3);
+        ss << std::setprecision(2);
         if(speed > ((1 << 30) / 10)) {
-            ss << speed / (1 << 30) << "GB/s";
+            ss << speed / (1 << 30) << "G";
         } else if(speed > ((1 << 20) / 10)) {
-            ss << speed / (1 << 20) << "MB/s";
+            ss << speed / (1 << 20) << "M";
         } else if(speed > ((1 << 10) / 10)) {
-            ss << speed / (1 << 10) << "kB/s";
+            ss << speed / (1 << 10) << "k";
         } else {
-            ss << speed << "bits";
+            ss << speed << "b";
         }
-        for(int i = ss.str().size(); i < 10; ++i) {
+        for(int i = ss.str().size(); i < 6; ++i) {
             status += " ";
         }
         status += ss.str();
@@ -73,17 +73,17 @@ public:
         std::string status;
         status += "";
         std::stringstream ss;
-        ss << std::setprecision(3);
+        ss << std::setprecision(2);
         if(speed > ((1 << 30) / 10)) {
-            ss << speed / (1 << 30) << "GB/s";
+            ss << speed / (1 << 30) << "G";
         } else if(speed > ((1 << 20) / 10)) {
-            ss << speed / (1 << 20) << "MB/s";
+            ss << speed / (1 << 20) << "M";
         } else if(speed > ((1 << 10) / 10)) {
-            ss << speed / (1 << 10) << "kB/s";
+            ss << speed / (1 << 10) << "k";
         } else {
-            ss << speed << "bits";
+            ss << speed << "b";
         }
-        for(int i = ss.str().size(); i < 10; ++i) {
+        for(int i = ss.str().size(); i < 6; ++i) {
             status += " ";
         }
         status += ss.str();
