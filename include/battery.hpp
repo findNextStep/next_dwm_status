@@ -29,8 +29,17 @@ protected:
         return result;
     }
     virtual void per_second_task() {
+        // copy from libqtile widget battery.py
+        // see https://github.com/qtile/qtile/blob/v0.13.0/libqtile/widget/battery.py
         std::string stat;
         std::ifstream fs(stat_file);
+        const std::vector<std::string> charging_icon = {
+            "", "", "", "", "", "", "",
+        };
+        const std::vector<std::string> discharging_icon = {
+            "", "", "", "", "", "", "", "", "", ""
+        };
+        const std::string unknow = "";
         fs >> stat;
         using namespace std;
         cout << stat << endl;
@@ -45,9 +54,9 @@ protected:
             const double time = now / power,
                          perc = now / full;
             std::stringstream ss;
-            ss << "" << perc << "%" << (int)time << ":" << (int)(time * 60) % 60;
+            ss << discharging_icon.at((perc - 0.001) * (discharging_icon.size() - 1)) << (int)(perc * 100) << "%" << (int)time << ":" << ((int)(time * 60) % 60);
             message = ss.str();
-        } else if(stat == "Charging"){
+        } else if(stat == "Charging") {
             // charging
             const double full = read_data(full_file),
                          now = read_data(now_file),
@@ -55,12 +64,17 @@ protected:
             const double time = (full - now) / power,
                          perc = now / full;
             std::stringstream ss;
-            ss << "" << perc << "%" << (int)time << ":" << (int)(time * 60) % 60;
+            ss << charging_icon.at((perc - 0.001) * (charging_icon.size() - 1)) << (int)(perc * 100) << "%" << (int)time << ":" << ((int)(time * 60) % 60);
             message = ss.str();
-        }else if(stat == "Unknown"){
-            message = "what ?" + stat;
-        }else{
-            message = "unknow "  + stat;
+        } else if(stat == "Unknown") {
+            const double full = read_data(full_file),
+                         now = read_data(now_file);
+            const double perc = now / full;
+            std::stringstream ss;
+            ss << unknow << (int)(perc * 100) << "%";
+            message = ss.str();
+        } else {
+            message = "unknow status "  + stat;
         }
     }
 public:
