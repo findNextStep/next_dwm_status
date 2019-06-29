@@ -24,6 +24,7 @@ public:
             voice_mutex.lock();
             voice = v.getVolume();
             voice_mutex.unlock();
+            barManager::requires_launch();
         }
     }) {}
     ~volumeBar() {
