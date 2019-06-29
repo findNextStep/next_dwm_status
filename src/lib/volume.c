@@ -1,6 +1,6 @@
 #include <volume.h>
 
-int audio_volume(audio_volume_action action, long *outvol) {
+int audio_volume(audio_volume_action action, int *outvol) {
 
     snd_mixer_t *handle;
     snd_mixer_elem_t *elem;
@@ -48,12 +48,7 @@ int audio_volume(audio_volume_action action, long *outvol) {
 
     if(action == AUDIO_VOLUME_GET) {
         snd_mixer_selem_get_playback_volume(elem, SND_MIXER_SCHN_FRONT_LEFT, outvol);
-
-        /* make the value bound to 100 */
-        *outvol -= minv;
-        maxv -= minv;
-        minv = 0;
-        *outvol = 100 * (*outvol) / maxv; // make the value bound from 0 to 100
+        *outvol = 100 * (*outvol - minv) / (maxv-minv);
     } else if(action == AUDIO_VOLUME_SET) {
         if(*outvol < 0 || *outvol > 100) {
             return -7;
@@ -65,7 +60,11 @@ int audio_volume(audio_volume_action action, long *outvol) {
     } else if(action == AUDIO_VOLUME_PLUS) {
         long volume;
         snd_mixer_selem_get_playback_volume(elem, SND_MIXER_SCHN_FRONT_LEFT, &volume);
+        volume  = 100 * (volume - minv) / (maxv-minv);
         volume += *outvol;
+        if(volume < 0 || volume > 100) {
+            return -7;
+        }
         volume = (volume * (maxv - minv) / (100 - 1)) + minv;
         snd_mixer_selem_set_playback_volume(elem, SND_MIXER_SCHN_FRONT_LEFT, volume);
         snd_mixer_selem_set_playback_volume(elem, SND_MIXER_SCHN_FRONT_RIGHT, volume);
