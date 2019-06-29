@@ -3,7 +3,9 @@
 
 #include <alsa/asoundlib.h>
 
+extern "C"{
 #include <volume.h>
+}
 
 class volume {
 protected:
