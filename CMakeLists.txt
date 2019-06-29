@@ -15,4 +15,8 @@ add_executable(next_dwm_status src/exe/status.cpp)
 target_compile_options(next_dwm_status PRIVATE -std=c++14)
 target_link_libraries(next_dwm_status X11 pthread util_volume)
 
+# test program
+add_executable(volume_test src/exe/volume_test.cpp)
+target_link_libraries(volume_test util_volume)
+
 install(TARGETS next_dwm_status)
