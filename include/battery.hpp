@@ -42,7 +42,6 @@ protected:
         const std::string unknow = "";
         fs >> stat;
         using namespace std;
-        cout << stat << endl;
         if(stat == "Full") {
             // full charge
             message = "100%";
