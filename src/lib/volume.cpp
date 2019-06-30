@@ -24,6 +24,7 @@ auto audio_volume_init() {
 
     snd_mixer_open(&handle, 0);
     snd_mixer_attach(handle, card);
+    snd_mixer_selem_register(handle, NULL, NULL);
     int ret = snd_mixer_load(handle);
     elem = snd_mixer_find_selem(handle, sid);
 
