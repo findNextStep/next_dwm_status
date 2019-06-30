@@ -10,8 +10,7 @@ int main(const int argc, const char **argv) {
     if(args.size() > 1) {
         std::string command = args.at(1);
         if(command == "get") {
-            long volume = 0;
-            audio_volume(AUDIO_VOLUME_GET, &volume);
+            long volume = audio_volume_get();
             std::cout << "volume == " << volume << std::endl;
         } else if(command == "set") {
             long volume = 0;
@@ -20,7 +19,7 @@ int main(const int argc, const char **argv) {
             } else {
                 std::cin >> volume;
             }
-            audio_volume(AUDIO_VOLUME_SET, &volume);
+            audio_volume_set(volume);
         } else if(command == "plus") {
             long volume = 0;
             if(args.size() == 3) {
@@ -28,23 +27,22 @@ int main(const int argc, const char **argv) {
             } else {
                 std::cin >> volume;
             }
-            audio_volume(AUDIO_VOLUME_PLUS, &volume);
+            audio_volume_plus(volume);
         }
     } else {
         std::string command = "";
         while(std::cin >> command) {
             if(command == "get") {
-                long volume = 0;
-                audio_volume(AUDIO_VOLUME_GET, &volume);
+                long volume = audio_volume_get();
                 std::cout << "volume == " << volume << std::endl;
             } else if(command == "set") {
                 long volume = 0;
                 std::cin >> volume;
-                audio_volume(AUDIO_VOLUME_SET, &volume);
+                audio_volume_set(volume);
             } else if(command == "plus") {
                 long volume = 0;
                 std::cin >> volume;
-                audio_volume(AUDIO_VOLUME_PLUS, &volume);
+                audio_volume_plus(volume);
             }
         }
     }

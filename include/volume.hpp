@@ -95,11 +95,9 @@ public:
     }
 
     void setVolume(long volume) {
-        audio_volume(AUDIO_VOLUME_SET, &volume);
+        audio_volume_set(volume);
     }
     long getVolume() {
-        long volume = 0;
-        audio_volume(AUDIO_VOLUME_GET, &volume);
-        return volume;
+        return audio_volume_get();
     } ;
 };

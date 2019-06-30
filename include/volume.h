@@ -2,9 +2,7 @@
 
 #include <alsa/asoundlib.h>
 
-typedef enum {
-    AUDIO_VOLUME_SET,
-    AUDIO_VOLUME_GET,
-    AUDIO_VOLUME_PLUS,
-} audio_volume_action;
-int audio_volume(audio_volume_action action, int *outvol);
+void audio_volume_set(const int outvol);
+int audio_volume_get();
+void audio_volume_plus(const int outvol);
+

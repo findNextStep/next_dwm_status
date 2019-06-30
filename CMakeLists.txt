@@ -7,7 +7,8 @@ include_directories(include)
 
 set(CMAKE_INSTALL_PREFIX $ENV{HOME}/.local)
 
-add_library(util_volume src/lib/volume.c)
+add_library(util_volume src/lib/volume.cpp)
+target_compile_options(util_volume PRIVATE -std=c++17)
 target_link_libraries(util_volume asound)
 
 # apt install libasound2-dev
