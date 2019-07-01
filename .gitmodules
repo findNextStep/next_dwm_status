@@ -1,0 +1,3 @@
+[submodule "3rdparty/fileWatcher"]
+	path = 3rdparty/fileWatcher
+	url = https://github.com/findNextStep/fileWatcher
