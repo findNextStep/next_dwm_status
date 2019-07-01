@@ -6,6 +6,7 @@
 #include <mutex>
 #include <memory>
 #include <string>
+#include <thread>
 
 #include <X11/Xlib.h>
 

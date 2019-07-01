@@ -5,7 +5,6 @@
 #include <fstream>
 #include <vector>
 #include <sstream>
-#include <iostream>
 
 namespace nextDwmStatus {
 const std::string battery_file = "/sys/class/power_supply/";

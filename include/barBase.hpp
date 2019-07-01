@@ -1,12 +1,7 @@
 #pragma once
 
 #include <string>
-#include <vector>
 #include <functional>
-#include <chrono>
-#include <thread>
-#include <iomanip>
-#include <ctime>
 #include <string.h>
 #include <stdio.h>
 
@@ -35,7 +30,6 @@ run_command(const std::string command) {
     char *p;
     FILE *fp;
     char buf[1024];
-
     if(!(fp = popen(command.c_str(), "r"))) {
         return "";
     }
@@ -49,9 +43,7 @@ run_command(const std::string command) {
     if((p = strrchr(buf, '\n'))) {
         p[0] = '\0';
     }
-
     return buf[0] ? buf : NULL;
 }
-
 
 }

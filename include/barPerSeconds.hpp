@@ -3,6 +3,9 @@
 #include <barBase.hpp>
 #include <barManager.hpp>
 
+#include <sstream>
+#include <iomanip>
+
 namespace nextDwmStatus {
 
 class barPerSeconds: public barBase {

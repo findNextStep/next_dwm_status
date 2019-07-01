@@ -4,8 +4,6 @@
 
 #include <fstream>
 #include <chrono>
-#include <iostream>
-#include <iomanip>
 
 namespace nextDwmStatus {
 

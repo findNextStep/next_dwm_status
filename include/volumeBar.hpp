@@ -5,7 +5,6 @@
 #include <volume.hpp>
 
 #include <thread>
-#include <memory>
 #include <string>
 
 namespace nextDwmStatus {

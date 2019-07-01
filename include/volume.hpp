@@ -1,10 +1,9 @@
 #pragma once
 #include <string>
 
-#include <alsa/asoundlib.h>
-
 extern "C"{
 #include <volume.h>
+#include <alsa/asoundlib.h>
 }
 
 class volume {

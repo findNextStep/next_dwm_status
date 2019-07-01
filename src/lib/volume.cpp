@@ -1,5 +1,6 @@
 extern "C" {
 #include <volume.h>
+#include <alsa/asoundlib.h>
 }
 #include <tuple>
 
