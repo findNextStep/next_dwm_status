@@ -6,6 +6,7 @@ add_subdirectory(3rdparty/fileWatcher)
 add_compile_options(-g)
 
 include_directories(include)
+include_directories(3rdparty/fileWatcher/include)
 
 set(CMAKE_INSTALL_PREFIX $ENV{HOME}/.local)
 
