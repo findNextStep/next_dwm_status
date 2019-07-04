@@ -17,7 +17,7 @@ target_link_libraries(util_volume asound)
 # apt install libasound2-dev
 add_executable(next_dwm_status src/exe/status.cpp)
 target_compile_options(next_dwm_status PRIVATE -std=c++14)
-target_link_libraries(next_dwm_status X11 pthread util_volume)
+target_link_libraries(next_dwm_status X11 pthread util_volume file_watcher)
 
 # test program
 add_executable(volume_test src/exe/volume_test.cpp)
