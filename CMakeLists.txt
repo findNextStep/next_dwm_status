@@ -1,7 +1,25 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(next_dwm_status VERSION 0.1.0)
 
-add_subdirectory(3rdparty/fileWatcher)
+find_package(Git QUIET)
+function(add_git_submodule dir)
+    if(GIT_FOUND)
+        message(STATUS "start update submodule " ${dir})
+        # 下载git子模块
+        execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init ${dir}
+                        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                        RESULT_VARIABLE GIT_SUBMOD_RESULT)
+        if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+            # 下载失败的处理
+            message(WARNING "git submodule update --init failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
+        else()
+            add_subdirectory(${dir})
+        endif()
+    else()
+        message(WARNING "git submodule update --init failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
+    endif()
+endfunction(add_git_submodule)
+add_git_submodule(3rdparty/fileWatcher)
 
 add_compile_options(-g)
 
