@@ -49,21 +49,30 @@ protected:
             const double full = read_data(full_file),
                          now = read_data(now_file),
                          power = read_data(power_file);
-            const double time = now / power,
-                         perc = now / full;
-            std::stringstream ss;
-            ss << discharging_icon.at((perc - 0.001) * (discharging_icon.size() - 1)) << (int)(perc * 100) << "%" << (int)time << ":" << ((int)(time * 60) % 60);
-            message = ss.str();
+            if(power == 0) {
+                message = "charge fail";
+            } else {
+                const double time = now / power,
+                             perc = now / full;
+                std::stringstream ss;
+                ss << discharging_icon.at((perc - 0.001) * (discharging_icon.size() - 1)) << (int)(perc * 100) << "%" << (int)time << ":" << ((int)(time * 60) % 60);
+                message = ss.str();
+            }
         } else if(stat == "Charging") {
             // charging
             const double full = read_data(full_file),
                          now = read_data(now_file),
                          power = read_data(power_file);
-            const double time = (full - now) / power,
-                         perc = now / full;
-            std::stringstream ss;
-            ss << charging_icon.at((perc - 0.001) * (charging_icon.size() - 1)) << (int)(perc * 100) << "%" << (int)time << ":" << ((int)(time * 60) % 60);
-            message = ss.str();
+
+            if(power == 0) {
+                message = "charge fail";
+            } else {
+                const double time = (full - now) / power,
+                            perc = now / full;
+                std::stringstream ss;
+                ss << charging_icon.at((perc - 0.001) * (charging_icon.size() - 1)) << (int)(perc * 100) << "%" << (int)time << ":" << ((int)(time * 60) % 60);
+                message = ss.str();
+            }
         } else if(stat == "Unknown") {
             const double full = read_data(full_file),
                          now = read_data(now_file);
